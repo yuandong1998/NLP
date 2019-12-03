@@ -4,6 +4,6 @@
 
 
 ## CS224N
-[my notes of CS224N]() 
+[my notes of CS224N](./cs224n/README_cs224n.md) 
 
 
