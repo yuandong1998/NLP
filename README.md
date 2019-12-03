@@ -4,6 +4,6 @@
 
 
 ## CS224N
-cs224n http://web.stanford.edu/class/cs224n/
+[my notes of CS224N]() 
 
 
