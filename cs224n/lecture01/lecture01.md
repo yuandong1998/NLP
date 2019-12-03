@@ -42,7 +42,11 @@ word $i$ 出现在document $j$ 中:$X_{ij}$ 这个矩阵很大$R^{|v|*M}$，因�
 
 ### 2.3 Applying SVD to the cooccurrence matrix
 
-得到$X=USV^T$，第k个单词的词向量是$U$的第k列乘以$\frac{\sum_{i=1}^k \sigma _i}{\sum_{i=1}^{|V|} \sigma_i}$
+得到$X=USV^T$，根据所捕获的期望方差百分比，在某个指数k处将它们截断.
+
+$$\frac{\sum_{i=1}^k \sigma _i}{\sum_{i=1}^{|V|} \sigma_i}$$
+
+$U_{1:|V|,1:k}$ 是我们的词向量矩阵。
 
 很难用在大型文档
 
