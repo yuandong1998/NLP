@@ -182,3 +182,11 @@ $$\sum_{i=1}^N\log(\frac{exp(W_{k(i)}x)}{\sum_{c=1}^C exp(W_c x^{(i)})})+\lambda
  1. [slides](http://web.stanford.edu/class/cs224n/slides/cs224n-2019-lecture02-wordvecs2.pdf)  
  2. [note](http://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes02-wordvecs2.pdf)  
  3. [vedio](https://youtu.be/kEMJRjEdNzM)
+ 4. [GloVe: Global Vectors for Word Representation (original GloVe paper)](https://nlp.stanford.edu/pubs/glove.pdf)
+ 5. [Improving Distributional Similarity with Lessons Learned from Word Embeddings](http://www.aclweb.org/anthology/Q15-1016)
+ 6. [Evaluation methods for unsupervised word embeddings](http://www.aclweb.org/anthology/D15-1036)
+ 7. [A Latent Variable Model Approach to PMI-based Word Embeddings](http://aclweb.org/anthology/Q16-1028)
+ 8. [Linear Algebraic Structure of Word Senses, with Applications to Polysemy](https://transacl.org/ojs/index.php/tacl/article/viewFile/1346/320)
+ 9. [On the Dimensionality of Word Embedding.](https://papers.nips.cc/paper/7368-on-the-dimensionality-of-word-embedding.pdf)
+
+ 
