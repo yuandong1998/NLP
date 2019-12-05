@@ -1,9 +1,4 @@
 # Lecture 01 : Introduction and Word Vectors
-slides [链接1](http://web.stanford.edu/class/cs224n/slides/cs224n-2019-lecture01-wordvecs1.pdf) [链接2](lecture01\cs224n-2019-lecture01-wordvecs1.pdf)
-
-note [链接](http://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes01-wordvecs1.pdf)
-
-vedio [链接](https://youtu.be/8rXD5-xhemo)
 ## 1.词的表示
 
 ### 1.1 WordNet
@@ -212,3 +207,16 @@ $$P(o|c)=\frac{exp(u_o^T v_c)}{\sum_{w\in V} exp(u_w^T v_c)}$$
 * every word has two vectors v和u向量
 
 理解：在$w_{t+j}和w_t$知道时$P(w_{t+j}|w_t;\theta)$代表已知的这种结果不同的参数$\theta$发生这种结果的概率，使乘积最大就是最大可能的参数。$P()$是我们假设的概率分布模型。
+
+## 参考资料
+1. [slides](http://web.stanford.edu/class/cs224n/slides/cs224n-2019-lecture01-wordvecs1.pdf) 
+
+2. [note](http://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes01-wordvecs1.pdf)
+
+3. [vedio](https://youtu.be/8rXD5-xhemo)
+
+4. [Word2Vec Tutorial - The Skip-Gram Model](http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/)
+
+5. [Efficient Estimation of Word Representations in Vector Space](http://arxiv.org/pdf/1301.3781.pdf) (original word2vec paper)
+
+6. [Distributed Representations of Words and Phrases and their Compositionality](http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf) (negative sampling paper)
