@@ -221,6 +221,16 @@ $$[n*m]=[n*1][1*m]$$
 
 Q1:链式法则为什么导致不一致需要转置？？？
 
+## 参考资料
+ 1. [slides](http://web.stanford.edu/class/cs224n/slides/cs224n-2019-lecture03-neuralnets.pdf) 
+ 2. [matrix calculus notes](http://web.stanford.edu/class/cs224n/readings/gradient-notes.pdf)
+ 3. [note](http://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes03-neuralnets.pdf)
+ 4. [vedio](https://youtu.be/8CWyBNX6eDo)
+ 5. [CS231n notes on backprop](http://cs231n.github.io/optimization-2/)
+ 6. [Review of differential calculus](http://web.stanford.edu/class/cs224n/readings/review-differential-calculus.pdf)
+ 7. [Natural Language Processing (Almost) from Scratch](http://www.jmlr.org/papers/volume12/collobert11a/collobert11a.pdf)
+ 8. [assignment 2参考答案](https://blog.csdn.net/lrs1353281004/article/details/89449978)
+ 9. [assignment 2编程参考](https://github.com/lrs1353281004/CS224n_winter2019_notes_and_assignments/tree/master/homework_my_solution/homework2)
 
 
 
