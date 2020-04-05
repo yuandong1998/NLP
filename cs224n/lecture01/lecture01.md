@@ -1,6 +1,5 @@
 # Lecture 01 : Introduction and Word Vectors
 ## 1.词的表示
-
 ### 1.1 WordNet
 
 * missing nuance 无法表示细微的差别
@@ -9,23 +8,23 @@
 * 人力
 * 无法计算相似性
 
-### 1.2 Onehot
+### 1.2 Onehot 编码
 
 * 维度高
-* There is no natural notion of similarity for one-hot vectors! 任何两个词都是正交的，没有计算相似性的方法。
+* 任何两个词都是正交的，没有计算相似性的方法。
 
-解决方法： learn to encode similarity in the vectors themselves 学习在向量本身中编码相似性
+解决方法： 学习在向量本身中编码相似性
 
 ### 1.3 Word vectors
 
 word vectors\word embeddings\word representations :distributed representation
 
-<u>Distributional semantics</u> : A word’s meaning is given by the words that frequently appear close-by
+**Distributional semantics**: A word’s meaning is given by the words that frequently appear close-by（一个词的意思是由经常出现在它附近的词所赋予的）
 
 
 ## 2.SVD Based Methods
 
-首先在一个大的数据集中循环计算共现矩阵X,然后对X进行奇异值分解得到$USV^T$，然后用U的行代表词的词向量。
+首先在一个大的数据集中循环计算共现矩阵(co-occurrence Matrix)X,然后对X进行奇异值分解得到$USV^T$，然后用U的行代表词的词向量。
 
 ### 2.1 Word-Document Matrix
 
@@ -47,20 +46,19 @@ $U_{1:|V|,1:k}$ 是我们的词向量矩阵。
 
 ## 3.Iteration Based Methods - Word2vec
 
+**思想**
+
 不需要全局信息，而是不断迭代，一次学习一次迭代。按照一定的目标训练模型。在每个迭代中，我们运行我们的模型，评估错误，并遵循一个更新规则，最终学习到词向量。
 
-* Go through each position t in the text, which has a center word
-c and context (“outside”) words o
+* Go through each position t in the text, which has a center word c and context (“outside”) words o
 
-*  Use the similarity of the word vectors for c and o to calculate
-the probability of o given c (or vice versa) **需要再理解** 根据c和o
-的相似性计算给定c得到o的概率或者相反。
+*  Use the similarity of the word vectors for c and o to calculate the probability of o given c (or vice versa) 
 
 *  Keep adjusting the word vectors to maximize this probability
 
 **两种算法：**
 
-1. Skip-grams (SG)
+1. Skip-grams (SG) 
 
 Predict context (”outside”) words (position independent) given centerword
 
@@ -70,8 +68,8 @@ Predict center word from (bag of) context words
 
 
 **训练方法**
-1、Negative sampling
-2、hierarchical softmax
+1、Negative sampling（负采样）
+2、hierarchical softmax（层次softmax）
 
 
 ### 3.1 Continuous Bag of Words Mode(CBOW)
@@ -97,11 +95,11 @@ $V、U$分别是输入、输出词向量矩阵
 
 $$H(\hat y,y)=-\sum_{j=1}^{|V|}y_j\log(\hat y_j)$$
 
-所以：
+所以我们优化目标为：最大化c预测o的概率。
 
 $$
 minimize J = -\log P(w_c|w_{c-m},...,w_{c+m}) \\
-= -\log P(u_c|\hat v)\\
+=-\log P(u_c|\hat v)\\
 =-\log \frac{exp(u_c^T)}{\sum_{j=1}^{|V|}exp(u_j^T\hat v)}\\
 =-u_c^T\hat v+\log \sum_{j=1}^{|V|}exp(u_j^T\hat v)
 $$
@@ -120,9 +118,11 @@ $$
 
 4. 转为概率 $\hat y=softmax(z)$
 
-5.希望$y与\hat y$相近
+5. 希望$y与\hat y$相近
 
-然后需要有一个目标函数，我们用贝叶斯的假设条件，给定中心字，所有输出字都是完全独立的。
+**对多个上下文只有一个分数变量z**
+
+然后需要有一个目标函数，我们用**贝叶斯的假设条件，给定中心字，所有输出字都是完全独立的**。
 
 所以：
 
@@ -131,6 +131,13 @@ $$minimize J=-\log P(w_{c-m},...,w_{c+m}|w_c)\\
 =-\log \prod_{j=0,j\neq m}^{2m}\frac{exp(u_{c-m+j}^T v_c)}{\sum{k=1}{|V|}exp(u_k^T v_c)}\\
 -\sum_{j=0,j\neq m}{2m}u_{c-m+j}^{T}v_c+2m\log\sum_{k=1}^{|V|}exp(u_k^Tv_c)
 $$
+
+所以：
+$$
+J=-\sum_{j=0,j\neq m}^{2m} \log P(u_{c-m+j|v_c})\\
+=\sum_{j=0,j\neq m}^{2m} H(\hat y,y_{c-m+j})
+$$
+
 
 ### 3.3 Negative Sampling
 
@@ -156,13 +163,15 @@ $$P(D=1|w,c,\theta)=\sigma(v_c^T v_w)=\frac{1}{1+e^{(-v_c^T v_w)}}$$
 
 $\{\hat u_k|k=1,...,K\}$是从$P_n(w)$中采样的。那么$P_n(w)$是什么样的呢？
 
-what seems to work best isthe Unigram Model raised to the power of 3/4.为什么是3/4呢？
+what seems to work best isthe **Unigram Model（一元模型）** raised to the power of **3/4**.为什么是3/4呢？
 
 ![avatar](./pic/pic5.png)
 
 ### 3.4 Hierarchical Softmax
 
-在实际应用中，对于不常用的词，Hierarchical Softmax的效果较好，而对于常用的词和低维向量，负采样效果较好。
+层次softmax可以参考我的笔记[Hierarchical softmax](https://app.yinxiang.com/shard/s6/nl/18037807/031fe709-3399-4167-b692-32de7f08be09)
+
+在实际应用中，**对于不常用的词，Hierarchical Softmax的效果较好，而对于常用的词和低维向量，负采样效果较好。**
 
 树每个叶子节点表示一个词，
 
@@ -185,33 +194,24 @@ $$\sum_{w=1}^{|V|}P(w|w_i)=1$$
 >To train the model, our goal is still to minimize the negative loglikelihood−logP(w|wi). But instead of updating output vectors per word, we update the vectors of the nodes in the binary tree that arein the path from root to leaf node.
 The speed of this method is determined by the way in which the binary tree is constructed and words are assigned to leaf nodes.Mikolov et al.  use a binary Huffman tree, which assigns frequentwords shorter paths in the tree.
 
+目标是最小化-logP（w|wi），不需用更新输出矩阵U，而是更新二分树节点的向量。因为sum为1，所以不用求分母下所有的值。
 
-### 3.5 objective function
+## 问题
 
-likelihood:
+1. 在skip-gram模型中做了贝叶斯假设，且通过一个softmax层输出。softmax各个词的概率又不是独立的，会有影响吗？
 
-$$L(\theta)=\prod_{t=1}^T\prod_{-m\leq j\leq m;j\neq 0}P(w_{t+j}|w_t;\theta)$$
+2. word2vec的目标函数是u v两个词的乘积越大就越相关吗？
 
-objective function $J(\theta)$
+3. 层次softmax的V是网络中的矩阵，U是二分树中树节点的向量矩阵，应该怎么结合。
 
-$$J(\theta)=-\frac{1}{T}\log{L(\theta)}$$
+4. U和V可以共享参数吗。
 
-最小化目标函数就是最大化预测概率
 
-$$v_w$$ ：w is a center word
-$$u_w$$ ：w is a context word
-
-$$P(o|c)=\frac{exp(u_o^T v_c)}{\sum_{w\in V} exp(u_w^T v_c)}$$
-
-* Exponentiation makes anything positive 幂运算使值为正
-* every word has two vectors v和u向量
-
-理解：在$w_{t+j}和w_t$知道时$P(w_{t+j}|w_t;\theta)$代表已知的这种结果不同的参数$\theta$发生这种结果的概率，使乘积最大就是最大可能的参数。$P()$是我们假设的概率分布模型。
 
 ## 参考资料
-1. [slides](http://web.stanford.edu/class/cs224n/slides/cs224n-2019-lecture01-wordvecs1.pdf) 
+1. [cs224n-2019-lecture01-wordvecs1](http://web.stanford.edu/class/cs224n/slides/cs224n-2019-lecture01-wordvecs1.pdf) 
 
-2. [note](http://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes01-wordvecs1.pdf)
+2. [cs224n-2019-notes01-wordvecs1](http://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes01-wordvecs1.pdf)
 
 3. [vedio](https://youtu.be/8rXD5-xhemo)
 

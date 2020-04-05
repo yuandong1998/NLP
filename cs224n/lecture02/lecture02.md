@@ -4,7 +4,6 @@
 
 word2vec基本在lecture01，这里写一些补充的东西。
 
-
 >Word2vec maximizes objective function by putting similar words nearby in space5
 
 word2vec 将相似的词更加相近。
@@ -71,14 +70,14 @@ $$J=-\sum_{i\in corpus}\sum_{j\in context(i)}\log Q_{ij}$$
 
 $$J=-\sum_{i=1}^W\sum_{j=1}^W X_{ij}\log Q_{ij} $$
 
-交叉熵损失的一个显著缺点是它要求分布Q被标准化，涉及到整个词汇量的昂贵的求和操作。所以我们使用最小二乘。
+**交叉熵损失的一个显著缺点是它要求分布Q被标准化，涉及到整个词汇量的昂贵的求和操作。所以我们使用最小二乘。**
 
 $$\hat J=\sum_{i=1}^W\sum_{j=1}^W X_{ij}(\hat P_{ij}-\hat Q_{ij})^2$$
 
-where $\hat P_{ij}=X_{ij} and \hat Q_{i}=exp(\hat u_j^T \hat v_i)$，但是产生一个问题是X_{ij}的值经常非常大使得优化很困难，所以将$\hat P and \hat Q$对数化。
+where $\hat P_{ij}=X_{ij} and \hat Q_{i}=exp(\hat u_j^T \hat v_i)$。这样是让$Q$去逼近P。但是产生一个问题是X_{ij}的值经常非常大使得优化很困难，所以将$\hat P and \hat Q$对数化。
 
-$$\hat J=\sum_{i=1}^W\sum_{j=1}^W X_{i}(\log{\hat P_{ij}}-\log{\hat Q_{ij}})^2\\
-=\sum_{i=1}^W\sum_{j=1}^W X_{i}(\hat u_j^T \hat v_i-\log X_{ij})^2$$
+$$\hat J=\sum_{i=1}^W\sum_{j=1}^W X_{ij}(\log{\hat P_{ij}}-\log{\hat Q_{ij}})^2\\
+=\sum_{i=1}^W\sum_{j=1}^W X_{ij}(\hat u_j^T \hat v_i-\log X_{ij})^2$$
 
 然后观察到权重因子$X_i$不是最优的所以：
 
